@@ -50,7 +50,12 @@ public func __swiftPMEntryPoint(_ args: [String]) -> CInt {
   }
   
   // Load the specified dylib
-  guard let image = dlopen(libPath, RTLD_LAZY | RTLD_FIRST) else {
+#if canImport(Darwin)
+  let flags = RTLD_LAZY | RTLD_FIRST
+#else
+  let flags = RTLD_LAZY
+#endif
+  guard let image = dlopen(libPath, flags) else {
     let errorMessage: String = dlerror().flatMap {
 #if compiler(>=6)
       String(validatingCString: $0)
