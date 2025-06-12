@@ -9,7 +9,10 @@
 
 import Foundation
 
-/// The entry point to the playgrounds library used by Swift Package Manager.
+/// Legacy entry point to the playgrounds library used by Swift Package Manager.
+///
+/// (No longer used by recent SwiftPM implementation. This function only remains
+/// for compatibility with older SwiftPM checkouts, and will be removed soon.)
 ///
 /// - Parameters:
 ///   - args: Command-line arguments to interpret.
@@ -22,6 +25,7 @@ import Foundation
 ///
 /// - Warning: This function is used by Swift Package Manager. Do not call it
 ///   directly.
+@available(*, deprecated, message: "Not used by SwiftPM anymore")
 public func __swiftPMEntryPoint(_ args: [String]) -> CInt {
   var listOption = false
   var oneShotOption = false
@@ -116,6 +120,97 @@ public func __swiftPMEntryPoint(_ args: [String]) -> CInt {
     RunLoop.main.run(until: Date.distantFuture)
   }
   
+  return 0
+}
+
+/// The entry point to the playgrounds library used by Swift Package Manager.
+///
+/// - Parameters:
+///   - args: Swift Play arguments to interpret.
+///
+/// - Returns: The result of invoking the playgrounds library.
+///
+/// This function examines the arguments represented by `args` and
+/// then invokes the playgrounds library in the current process.
+///
+/// - Warning: This function is used by Swift Package Manager. Do not call it
+///   directly.
+@discardableResult
+public func __swiftPlayEntryPoint(_ args: [String]) async -> Int {
+  var listOption = false
+  var oneShotOption = false
+  var playgroundDescription = ""
+
+  // Parse arguments
+  for arg in args {
+    if arg == "--list" {
+      listOption = true
+    }
+    else if arg == "--one-shot" {
+      oneShotOption = true
+    }
+    else {
+      playgroundDescription = arg
+    }
+  }
+
+  func printListOfPlaygrounds(_ playgrounds: [__Playground]) {
+    for playground in playgrounds.sorted(by: playgroundSort) {
+      let playgroundName = {
+        if let name = playground.__name {
+          return name
+        }
+        return "(unnamed)"
+      }()
+      print("* \(playground.__id.__fileID):\(playground.__id.__line) \(playgroundName)")
+    }
+  }
+
+  if listOption {
+    // List playgrounds only
+    let playgrounds = __Playground.__allPlaygrounds()
+    print("Found \(playgrounds.count) Playground\(playgrounds.count==1 ? "" : "s")")
+    printListOfPlaygrounds(playgrounds)
+    return 0
+  }
+
+  let playgrounds = __Playground.__findPlaygrounds(describedBy: playgroundDescription)
+  guard playgrounds.count > 0 else {
+    print("Unknown Playground \"\(playgroundDescription)\"")
+    return 1
+  }
+
+  guard playgrounds.count == 1 else {
+    print("Multiple playgrounds match the given description \"\(playgroundDescription)\"")
+    printListOfPlaygrounds(playgrounds)
+    return 1
+  }
+
+  let playground = playgrounds[0]
+
+  print("---- Running Playground \"\(playground.__displayName)\" - Hit ^C to quit ----")
+
+  do {
+    try await playground.__run()
+  } catch {
+    print("Playground stopped with error: \(error)")
+  }
+
+  if oneShotOption {
+    // Exit immediately after one-shot execution
+    return 0
+  }
+
+  // Wait forever so Playground can continue executing any asynchronous calls.
+  do {
+    while true {
+      let sleepTime: UInt64 = 2_000_000_000_000 // an arbitrary amount of many seconds
+      try await Task.sleep(nanoseconds: sleepTime)
+    }
+  } catch {
+    print("\(error)")
+  }
+
   return 0
 }
 
