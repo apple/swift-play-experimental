@@ -28,7 +28,7 @@ extension PlaygroundContent: DiscoverableAsTestContent {
 }
 
 extension PlaygroundContent {
-  private static func allTypeMetadataBasedTestContentRecords() -> AnySequence<TestContentRecord<Self>> {
+  private static func allTypeMetadataBasedTestContentRecords() -> some Sequence<TestContentRecord<Self>> {
     allTypeMetadataBasedTestContentRecords { type, outRecord in
       guard let type = type as? any __PlaygroundsContentRecordContainer.Type else {
         return false
