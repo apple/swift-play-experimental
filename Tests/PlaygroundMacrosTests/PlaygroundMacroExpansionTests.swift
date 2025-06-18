@@ -71,6 +71,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             "Named Playground with trailing closure",
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -143,6 +145,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             nil,
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -215,6 +219,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             "Named Playground with trailing closure containing in arg",
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -287,6 +293,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             nil,
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -359,6 +367,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             "Named playground with closure as body argument",
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -431,6 +441,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             nil,
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -491,6 +503,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             "Named playground with function reference as body argument",
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -551,6 +565,8 @@ struct PlaygroundMacroExpansionTests {
           Playgrounds.__store(
             nil,
             __macro_local_15PlaygroundEntryfMu_,
+            line: 1,
+            column: 1,
             at: outValue,
             asTypeAt: type,
             withHintAt: hint

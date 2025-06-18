@@ -147,8 +147,8 @@ public func __store(
   _ name: String?,
   _ body: @escaping @Sendable @MainActor () async throws -> Void,
   _ fileID: String = #fileID,
-  _ line: Int = #line,
-  _ column: Int = #column,
+  line: Int,
+  column: Int,
   at outValue: UnsafeMutableRawPointer,
   asTypeAt typeAddress: UnsafeRawPointer,
   withHintAt hintAddress: UnsafeRawPointer?

@@ -20,6 +20,11 @@ public enum Playground: DeclarationMacro, Sendable {
     of node: some FreestandingMacroExpansionSyntax,
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
+    guard let location = node.location(in: context) else {
+      print("\(self) macro \"\(node.arguments.first?.trimmedDescription ?? "<unnamed>")\": Unable to determine macro source location")
+      return []
+    }
+
     // Determine the playground's name
     let name: any ExprSyntaxProtocol
     if let nameArg = node.arguments.first,
@@ -86,6 +91,8 @@ public enum Playground: DeclarationMacro, Sendable {
           Playgrounds.__store(
             \(name),
             \(playgroundEntryName),
+            line: \(location.line),
+            column: \(location.column),
             at: outValue,
             asTypeAt: type,
             withHintAt: hint
@@ -211,5 +218,11 @@ private extension ClosureExprSyntax {
     // marker call.
     statements = [firstStatement] + statements.dropFirst()
     statements.insert(markerStatement, at: statements.startIndex)
+  }
+}
+
+extension FreestandingMacroExpansionSyntax {
+  fileprivate func location(in context: any MacroExpansionContext ) -> AbstractSourceLocation? {
+    context.location(of: pound, at: .afterLeadingTrivia, filePathMode: .fileID)
   }
 }
