@@ -46,7 +46,7 @@ public enum Playground: DeclarationMacro, Sendable {
     let playgroundRunFuncName = context.makeUniqueName("PlaygroundRunFunc")
     let playgroundRunFuncDeclSyntax: DeclSyntax =
       """
-      @MainActor @Sendable private func \(playgroundRunFuncName)(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
+      @MainActor @Sendable private static func \(playgroundRunFuncName)(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
       
@@ -55,16 +55,29 @@ public enum Playground: DeclarationMacro, Sendable {
     // Define a function that will call the run function with arguments and any trailing closure preserved as written
     let playgroundEntryCallExpression = node.playgroundCallExpression(forFuncName: "\(playgroundRunFuncName)")
     let playgroundEntryName = context.makeUniqueName("PlaygroundEntry")
+    // Important: the body of this playground entry func must _not_ be indented. Otherwise column ranges of live results will be incorrect.
     let playgroundEntryDecl: DeclSyntax =
       """
-      @MainActor @Sendable private func \(playgroundEntryName)() async throws {
-      struct \(markerTokenSyntax) { 
+      private struct \(markerTokenSyntax) { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
           self.utf8offset = utf8offset
         } 
       }
+      @MainActor @Sendable fileprivate static func \(playgroundEntryName)() async throws {
       try await \(playgroundEntryCallExpression)
+      }
+      
+      """
+
+    let playgroundEntryContainerName = context.makeUniqueName("PlaygroundEntryContainer")
+    // Important: the body of this playground entry container enum must _not_ be indented. Otherwise column ranges of live results will be incorrect.
+    let playgroundEntryContainerDecl: DeclSyntax =
+      """
+      @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
+      fileprivate enum \(playgroundEntryContainerName) {
+      \(playgroundRunFuncDeclSyntax)
+      \(playgroundEntryDecl)
       }
       
       """
@@ -90,7 +103,7 @@ public enum Playground: DeclarationMacro, Sendable {
         { outValue, type, hint, _ in
           Playgrounds.__store(
             \(name),
-            \(playgroundEntryName),
+            \(playgroundEntryContainerName).\(playgroundEntryName),
             line: \(location.line),
             column: \(location.column),
             at: outValue,
@@ -117,8 +130,7 @@ public enum Playground: DeclarationMacro, Sendable {
       """
 
     return [
-      playgroundRunFuncDeclSyntax,
-      playgroundEntryDecl,
+      playgroundEntryContainerDecl,
       playgroundContentRecordDecl,
       playgroundContentRecordContainerDecl
     ]
