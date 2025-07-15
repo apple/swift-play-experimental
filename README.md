@@ -72,4 +72,4 @@ prototype.
 
 ### Cross-platform support
 
-macOS is supported. Other platforms to be supported soon. 
+macOS and Linux are currently supported. Other platforms to be supported soon. 
