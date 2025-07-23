@@ -77,7 +77,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -159,7 +159,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -241,7 +241,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -323,7 +323,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -405,7 +405,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -487,7 +487,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -557,7 +557,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
@@ -627,7 +627,7 @@ struct PlaygroundMacroExpansionTests {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
