@@ -97,7 +97,7 @@ public enum Playground: DeclarationMacro, Sendable {
       @_used
       #endif
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
-      private let \(playgroundContentRecordName): Playgrounds.__PlaygroundsContentRecord = (
+      nonisolated private let \(playgroundContentRecordName): Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
         0,
         { outValue, type, hint, _ in
