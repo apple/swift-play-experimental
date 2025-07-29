@@ -9,6 +9,7 @@
 
 import Foundation
 
+#if !os(Windows)
 /// Legacy entry point to the playgrounds library used by Swift Package Manager.
 ///
 /// (No longer used by recent SwiftPM implementation. This function only remains
@@ -122,6 +123,7 @@ public func __swiftPMEntryPoint(_ args: [String]) -> CInt {
   
   return 0
 }
+#endif
 
 /// The entry point to the playgrounds library used by Swift Package Manager.
 ///

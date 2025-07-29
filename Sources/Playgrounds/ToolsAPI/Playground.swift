@@ -7,7 +7,9 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 
+#if !os(Windows)
 @_weakLinked
+#endif
 public struct __Playground: Sendable {
   // MARK: - For Tools Use: Identifying a playground -
   public struct __ID: Equatable, Hashable, CustomStringConvertible, Sendable {
