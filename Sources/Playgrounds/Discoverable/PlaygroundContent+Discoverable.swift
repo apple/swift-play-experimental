@@ -143,7 +143,9 @@ public typealias __PlaygroundsContentRecord = (
 ///
 /// - Warning: This function is used to implement the `#Playground` macro. Do not use it
 ///   directly.
+#if !os(Windows)
 @_weakLinked
+#endif
 public func __store(
   _ name: String?,
   _ body: @escaping @Sendable @MainActor () async throws -> Void,
@@ -193,7 +195,9 @@ public func __store(
 ///
 /// - Warning: This protocol is used to implement the `#Playground` macro. Do
 ///   not use it it directly.
+#if !os(Windows)
 @_weakLinked
+#endif
 @_alwaysEmitConformanceMetadata
 public protocol __PlaygroundsContentRecordContainer {
   /// The playgrounds content record associated with this container.
