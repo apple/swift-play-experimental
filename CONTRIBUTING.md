@@ -4,6 +4,8 @@
 
 An experimental Swift Package Manager branch implements a new "swift play" command, which provides an easy way to list and run `#Playground` instances found in package library targets.
 
+"swift play" is currently supported on macOS and Linux. With partial support for Windows.
+
 ### Swift Package Manager prototype branch build
 
 Checkout and build the swift-package-manager branch `eng/chrismiles/swift-play-prototype` first.
@@ -45,6 +47,10 @@ You may also need to set a minimum platform version.  If so, you can add an entr
 In a terminal, add the swiftpm debug products path to $PATH. Example:
 
     export PATH=~/swift-package-manager/.build/arm64-apple-macosx/debug:$PATH
+
+Or, if using Swiftly which doesn't take PATH into account, you can instead create a symlink to the swift-play executable. For example, on Linux:
+
+    ln -s ~/swift-package-manager/.build/aarch64-unknown-linux-gnu/debug/swift-play ~/.local/share/swiftly/toolchains/6.1.2/usr/bin/swift-play
 
 Change directory to the package and use `swift play --list` to verify everything works with no code modifications. The package should build and you should see “Found 0 Playgrounds”. Example:
 
