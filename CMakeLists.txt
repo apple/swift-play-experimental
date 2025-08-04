@@ -1,0 +1,58 @@
+# This source file is part of the Swift Play Experimental open source project
+#
+# Copyright (c) 2025 Apple Inc. and the Swift Play Experimental project authors
+# Licensed under Apache License v2.0 with Runtime Library Exception
+#
+# See https://swift.org/LICENSE.txt for license information
+
+cmake_minimum_required(VERSION 3.19.6...3.29)
+
+#if(POLICY CMP0157)
+#  if(CMAKE_HOST_SYSTEM_NAME STREQUAL Windows AND CMAKE_SYSTEM_NAME STREQUAL Android)
+#    # CMP0157 causes builds to fail when targetting Android with the Windows
+#    # toolchain, because the early swift-driver isn't (yet) available. Disable
+#    # it for now.
+#    cmake_policy(SET CMP0157 OLD)
+#  else()
+#    cmake_policy(SET CMP0157 NEW)
+#  endif()
+#endif()
+
+project(SwiftPlayExperimental
+  LANGUAGES Swift)
+
+#if(NOT APPLE)
+#  if(NOT CMAKE_SYSTEM_NAME STREQUAL WASI)
+#    find_package(dispatch CONFIG)
+#  endif()
+#  find_package(Foundation CONFIG)
+#endif()
+
+include(GNUInstallDirs)
+
+list(APPEND CMAKE_MODULE_PATH
+  ${PROJECT_SOURCE_DIR}/cmake/modules
+  ${PROJECT_SOURCE_DIR}/cmake/modules/shared)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+set(CMAKE_INSTALL_RPATH "$<IF:$<PLATFORM_ID:Darwin>,@loader_path/..,$ORIGIN>")
+set(CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH YES)
+
+set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreadedDLL)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_Swift_LANGUAGE_VERSION 6)
+set(CMAKE_Swift_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/swift)
+
+include(PlatformInfo)
+include(SwiftModuleInstallation)
+
+option(SwiftPlayExperimental_INSTALL_NESTED_SUBDIR "Install libraries under a platform and architecture subdirectory" NO)
+set(SwiftPlayExperimental_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlayExperimental_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlayExperimental_INSTALL_NESTED_SUBDIR}>>>:/testing>$<$<BOOL:${SwiftPlayExperimental_INSTALL_NESTED_SUBDIR}>:/${SwiftPlayExperimental_ARCH_SUBDIR}>")
+set(SwiftPlayExperimental_INSTALL_SWIFTMODULEDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlayExperimental_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlayExperimental_INSTALL_NESTED_SUBDIR}>>>:/testing>")
+
+add_compile_options($<$<COMPILE_LANGUAGE:Swift>:-no-toolchain-stdlib-rpath>)
+
+add_subdirectory(Sources)
