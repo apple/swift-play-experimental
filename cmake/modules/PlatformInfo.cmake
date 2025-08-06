@@ -13,15 +13,15 @@ execute_process(COMMAND ${print_target_info_invocation} OUTPUT_VARIABLE target_i
 message(CONFIGURE_LOG "Swift Target Info: ${print_target_info_invocation}\n"
 "${target_info_json}")
 
-if(NOT SwiftPlaygrounds_MODULE_TRIPLE)
+if(NOT SwiftPlay_MODULE_TRIPLE)
   string(JSON module_triple GET "${target_info_json}" "target" "moduleTriple")
-  set(SwiftPlaygrounds_MODULE_TRIPLE "${module_triple}" CACHE STRING "Triple used for installed swift{doc,module,interface} files")
-  mark_as_advanced(SwiftPlaygrounds_MODULE_TRIPLE)
+  set(SwiftPlay_MODULE_TRIPLE "${module_triple}" CACHE STRING "Triple used for installed swift{doc,module,interface} files")
+  mark_as_advanced(SwiftPlay_MODULE_TRIPLE)
 
   message(CONFIGURE_LOG "Swift Module Triple: ${module_triple}")
 endif()
 
-if(NOT SwiftPlaygrounds_PLATFORM_SUBDIR)
+if(NOT SwiftPlay_PLATFORM_SUBDIR)
   string(JSON platform GET "${target_info_json}" "target" "platform")
   if(NOT platform)
     if(NOT SWIFT_SYSTEM_NAME)
@@ -32,16 +32,16 @@ if(NOT SwiftPlaygrounds_PLATFORM_SUBDIR)
       endif()
     endif()
   endif()
-  set(SwiftPlaygrounds_PLATFORM_SUBDIR "${platform}" CACHE STRING "Platform name used for installed swift{doc,module,interface} files")
-  mark_as_advanced(SwiftPlaygrounds_PLATFORM_SUBDIR)
+  set(SwiftPlay_PLATFORM_SUBDIR "${platform}" CACHE STRING "Platform name used for installed swift{doc,module,interface} files")
+  mark_as_advanced(SwiftPlay_PLATFORM_SUBDIR)
 
   message(CONFIGURE_LOG "Swift Platform: ${platform}")
 endif()
 
-if(NOT SwiftPlaygrounds_ARCH_SUBDIR)
+if(NOT SwiftPlay_ARCH_SUBDIR)
   string(JSON arch GET "${target_info_json}" "target" "arch")
-  set(SwiftPlaygrounds_ARCH_SUBDIR "${arch}" CACHE STRING "Architecture used for setting the architecture subdirectory")
-  mark_as_advanced(SwiftPlaygrounds_ARCH_SUBDIR)
+  set(SwiftPlay_ARCH_SUBDIR "${arch}" CACHE STRING "Architecture used for setting the architecture subdirectory")
+  mark_as_advanced(SwiftPlay_ARCH_SUBDIR)
 
   message(CONFIGURE_LOG "Swift Architecture: ${arch}")
 endif()

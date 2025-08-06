@@ -23,7 +23,7 @@ endif()
 
 find_package(SwiftSyntax CONFIG GLOBAL)
 
-if(SwiftPlaygrounds_BuildMacrosAsExecutables)
+if(SwiftPlay_BuildMacrosAsExecutables)
   # When building the macro plugin as an executable, clone and build
   # swift-syntax.
   include(FetchContent)
@@ -40,7 +40,7 @@ endif()
 include(AvailabilityDefinitions)
 include(CompilerSettings)
 
-if(SwiftPlaygrounds_BuildMacrosAsExecutables)
+if(SwiftPlay_BuildMacrosAsExecutables)
   # When swift-syntax is built locally, the macro plugin must be built as an
   # executable.
   add_executable(PlaygroundMacros)
@@ -89,7 +89,7 @@ target_link_libraries(PlaygroundMacros PRIVATE
   SwiftSyntax::SwiftSyntax
   SwiftSyntax::SwiftSyntaxMacroExpansion
   SwiftSyntax::SwiftSyntaxMacros)
-if(SwiftPlaygrounds_BuildMacrosAsExecutables)
+if(SwiftPlay_BuildMacrosAsExecutables)
   # Link the 'SwiftCompilerPlugin' target, but only when built as an executable.
   target_link_libraries(PlaygroundMacros PRIVATE
     SwiftSyntax::SwiftCompilerPlugin)
