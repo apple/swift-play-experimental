@@ -50,8 +50,8 @@ include(PlatformInfo)
 include(SwiftModuleInstallation)
 
 option(SwiftPlay_INSTALL_NESTED_SUBDIR "Install libraries under a platform and architecture subdirectory" NO)
-set(SwiftPlay_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlay_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>>>:/testing>$<$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>:/${SwiftPlay_ARCH_SUBDIR}>")
-set(SwiftPlay_INSTALL_SWIFTMODULEDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlay_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>>>:/testing>")
+set(SwiftPlay_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlay_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>>>:>$<$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>:/${SwiftPlay_ARCH_SUBDIR}>")
+set(SwiftPlay_INSTALL_SWIFTMODULEDIR "${CMAKE_INSTALL_LIBDIR}/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/${SwiftPlay_PLATFORM_SUBDIR}$<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${SwiftPlay_INSTALL_NESTED_SUBDIR}>>>:>")
 
 add_compile_options($<$<COMPILE_LANGUAGE:Swift>:-no-toolchain-stdlib-rpath>)
 
