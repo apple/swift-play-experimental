@@ -63,11 +63,10 @@ else()
   target_link_options(PlaygroundMacros PRIVATE "-no-toolchain-stdlib-rpath")
   set_property(TARGET PlaygroundMacros PROPERTY BUILD_WITH_INSTALL_RPATH YES)
 
+  set(plugin_destination_dir "lib/swift/host/plugins")
   if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    set(plugin_destination_dir "lib/swift/host/plugins/playgrounds")
     set_property(TARGET PlaygroundMacros PROPERTY INSTALL_RPATH)
   else()
-    set(plugin_destination_dir "lib/swift/host/plugins")
     # RPATH 'lib/swift/{system}' and 'lib/swift/host'
     set_property(TARGET PlaygroundMacros PROPERTY
       INSTALL_RPATH "$ORIGIN/../../$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>;$ORIGIN/..")

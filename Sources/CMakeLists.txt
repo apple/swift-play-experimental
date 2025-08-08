@@ -64,7 +64,7 @@ if(SwiftPlay_MACRO STREQUAL "<auto>")
   # properties of its targets here.
   if(NOT SwiftPlay_BuildMacrosAsExecutables)
     if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
-      set(SwiftPlay_MACRO_PATH "${SwiftPlay_MACRO_INSTALL_PREFIX}/lib/swift/host/plugins/playgrounds/libPlaygroundMacros.dylib")
+      set(SwiftPlay_MACRO_PATH "${SwiftPlay_MACRO_INSTALL_PREFIX}/lib/swift/host/plugins/libPlaygroundMacros.dylib")
     elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_HOST_SYSTEM_NAME STREQUAL "FreeBSD")
       set(SwiftPlay_MACRO_PATH "${SwiftPlay_MACRO_INSTALL_PREFIX}/lib/swift/host/plugins/libPlaygroundMacros.so")
     elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
