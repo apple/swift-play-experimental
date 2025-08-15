@@ -44,15 +44,8 @@ target_link_libraries(Playgrounds PRIVATE
   _TestDiscovery
   _TestingInternals)
 if(NOT APPLE)
-#  if(NOT CMAKE_SYSTEM_NAME STREQUAL WASI)
-#    target_link_libraries(Playgrounds PUBLIC
-#      dispatch)
-#  endif()
   target_link_libraries(Playgrounds PUBLIC
     Foundation)
-#  if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-#    target_link_libraries(Playgrounds PUBLIC execinfo)
-#  endif()
 endif()
 if(NOT BUILD_SHARED_LIBS)
   # When building a static library, tell clients to autolink the internal

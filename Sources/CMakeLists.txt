@@ -100,6 +100,5 @@ elseif(SwiftPlay_MACRO_PATH)
   endif()
 endif()
 
-include(AvailabilityDefinitions)
 include(CompilerSettings)
 add_subdirectory(Playgrounds)

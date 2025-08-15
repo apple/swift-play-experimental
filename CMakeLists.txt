@@ -7,26 +7,8 @@
 
 cmake_minimum_required(VERSION 3.19.6...3.29)
 
-#if(POLICY CMP0157)
-#  if(CMAKE_HOST_SYSTEM_NAME STREQUAL Windows AND CMAKE_SYSTEM_NAME STREQUAL Android)
-#    # CMP0157 causes builds to fail when targetting Android with the Windows
-#    # toolchain, because the early swift-driver isn't (yet) available. Disable
-#    # it for now.
-#    cmake_policy(SET CMP0157 OLD)
-#  else()
-#    cmake_policy(SET CMP0157 NEW)
-#  endif()
-#endif()
-
 project(SwiftPlayExperimental
   LANGUAGES Swift)
-
-#if(NOT APPLE)
-#  if(NOT CMAKE_SYSTEM_NAME STREQUAL WASI)
-#    find_package(dispatch CONFIG)
-#  endif()
-#  find_package(Foundation CONFIG)
-#endif()
 
 include(GNUInstallDirs)
 
@@ -36,7 +18,6 @@ list(APPEND CMAKE_MODULE_PATH
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(CMAKE_INSTALL_RPATH "$<IF:$<PLATFORM_ID:Darwin>,@loader_path/..,$ORIGIN>")
 set(CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH YES)

@@ -37,7 +37,6 @@ endif()
 # Include these modules _after_ swift-syntax is declared above, but _before_ the
 # macro plugin target is declared below, so that its settings are not applied to
 # the former but are applied to the latter.
-include(AvailabilityDefinitions)
 include(CompilerSettings)
 
 if(SwiftPlay_BuildMacrosAsExecutables)
