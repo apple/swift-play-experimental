@@ -52,7 +52,10 @@ let package = Package(
       dependencies: [
         "Playgrounds",
       ],
-      swiftSettings: .packageSettings
+      swiftSettings: .packageSettings + [
+        // Enable playground macro expansion in test code
+        .define("PLAYGROUND_MACRO_EXPANSION_ENABLED"),
+      ]
     ),
     
     .macro(

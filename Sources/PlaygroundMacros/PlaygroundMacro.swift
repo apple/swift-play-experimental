@@ -42,6 +42,14 @@ public enum Playground: DeclarationMacro, Sendable {
       throw PlaygroundDiagnostic(description: "\(self) macro \(name): Must be at file scope")
     }
 
+    let conditionStart: DeclSyntax = """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
+      """
+
+    let conditionEnd: DeclSyntax = """
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
+      """
+
     // Define a function that will run the playground body
     let playgroundRunFuncName = context.makeUniqueName("PlaygroundRunFunc")
     let playgroundRunFuncDeclSyntax: DeclSyntax =
@@ -49,7 +57,6 @@ public enum Playground: DeclarationMacro, Sendable {
       @MainActor @Sendable private static func \(playgroundRunFuncName)(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       """
 
     // Define a function that will call the run function with arguments and any trailing closure preserved as written
@@ -67,7 +74,6 @@ public enum Playground: DeclarationMacro, Sendable {
       @MainActor @Sendable fileprivate static func \(playgroundEntryName)() async throws {
       try await \(playgroundEntryCallExpression)
       }
-      
       """
 
     let playgroundEntryContainerName = context.makeUniqueName("PlaygroundEntryContainer")
@@ -79,7 +85,6 @@ public enum Playground: DeclarationMacro, Sendable {
       \(playgroundRunFuncDeclSyntax)
       \(playgroundEntryDecl)
       }
-      
       """
 
     // The playground content record to be be looked up at runtime
@@ -114,7 +119,6 @@ public enum Playground: DeclarationMacro, Sendable {
         0,
         0
       )
-      
       """
 
     // The playground content record container to be looked up at runtime
@@ -129,11 +133,13 @@ public enum Playground: DeclarationMacro, Sendable {
       }
       """
 
-    return [
-      playgroundEntryContainerDecl,
-      playgroundContentRecordDecl,
-      playgroundContentRecordContainerDecl
-    ]
+    return ["""
+      \(conditionStart)
+      \(playgroundEntryContainerDecl)
+      \(playgroundContentRecordDecl)
+      \(playgroundContentRecordContainerDecl)
+      \(conditionEnd)
+      """]
   }
   
   public static var formatMode: FormatMode {

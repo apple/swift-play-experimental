@@ -43,12 +43,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -64,7 +64,6 @@ struct PlaygroundMacroExpansionTests {
           print("\\(metadata.displayName) was executed: \\(metadata.wasExecuted)")
       }
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -100,6 +99,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -125,12 +125,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -146,7 +146,6 @@ struct PlaygroundMacroExpansionTests {
         print("\\(metadata.displayName) was executed: \\(metadata.wasExecuted)")
       }
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -182,6 +181,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -207,12 +207,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -228,7 +228,6 @@ struct PlaygroundMacroExpansionTests {
         print("\\(metadata.displayName) was executed: \\(metadata.wasExecuted)")
       }
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -264,6 +263,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -289,12 +289,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -310,7 +310,6 @@ struct PlaygroundMacroExpansionTests {
         print("\\(metadata.displayName) was executed: \\(metadata.wasExecuted)")
       }
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -346,6 +345,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -371,12 +371,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -392,7 +392,6 @@ struct PlaygroundMacroExpansionTests {
         print("\\(metadata.displayName): was executed: \\(metadata.wasExecuted)")
       })
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -428,6 +427,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -453,12 +453,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -474,7 +474,6 @@ struct PlaygroundMacroExpansionTests {
         print("\\(metadata.displayName): was executed: \\(metadata.wasExecuted)")
       })
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -510,6 +509,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -529,12 +529,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -544,7 +544,6 @@ struct PlaygroundMacroExpansionTests {
       @MainActor @Sendable fileprivate static func __macro_local_15PlaygroundEntryfMu_() async throws {
       try await __macro_local_17PlaygroundRunFuncfMu_("Named playground with function reference as body argument", body: namedPlaygroundWithFunctionReferenceAsBodyArgumentBody)
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -580,6 +579,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -599,12 +599,12 @@ struct PlaygroundMacroExpansionTests {
       """,
       expandedSource:
       """
+      #if PLAYGROUND_MACRO_EXPANSION_ENABLED
       @available(*, deprecated, message: "This type is an implementation detail of the Playgrounds library. Do not use it directly.")
       fileprivate enum __macro_local_24PlaygroundEntryContainerfMu_ {
       @MainActor @Sendable private static func __macro_local_17PlaygroundRunFuncfMu_(_ name: String? = nil, body: @MainActor @Sendable () async throws -> ()) async throws {
       try await body()
       }
-      
       private struct $__Marker { 
         let utf8offset: Int
         @discardableResult init(utf8offset: Int) {
@@ -614,7 +614,6 @@ struct PlaygroundMacroExpansionTests {
       @MainActor @Sendable fileprivate static func __macro_local_15PlaygroundEntryfMu_() async throws {
       try await __macro_local_17PlaygroundRunFuncfMu_(body: unnamedPlaygroundWithFunctionReferenceAsBodyArgumentBody)
       }
-      
       }
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -650,6 +649,7 @@ struct PlaygroundMacroExpansionTests {
           __macro_local_23PlaygroundContentRecordfMu_
         }
       }
+      #endif // PLAYGROUND_MACRO_EXPANSION_ENABLED
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
