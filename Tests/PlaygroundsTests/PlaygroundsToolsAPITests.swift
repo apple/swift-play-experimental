@@ -116,9 +116,38 @@ import Testing
 }
 #Playground(body: unnamedPlaygroundWithFunctionReferenceAsBodyArgumentBody)
 
+/// Playground not on the first column, testing column offset calculation after non-ascii character
+@MainActor fileprivate var playgroundAtNonAsciiColumnOffset = TestablePlaygroundMetadata(name: "Non-ascii column test",playgroundLineNumber: #line + 1, playgroundColumnNumber: "/* 🧑‍🧑‍🧒‍🧒 */ ".utf8.count+1)
+/* 🧑‍🧑‍🧒‍🧒 */ #Playground("Non-ascii column test") {
+  let metadata = playgroundAtNonAsciiColumnOffset
+  let random = Int.random(in: 1...100)
+  print("\(metadata.displayName): random = \(random)")
+  metadata.wasExecuted = true
+  print("\(metadata.displayName): was executed: \(metadata.wasExecuted)")
+}
+
+/// Two playgrounds on the same line
+@MainActor fileprivate func multiplePlaygroundsPerLinePlayground1Body() {
+  let metadata = multiplePlaygroundsPerLinePlayground1
+  let random = Int.random(in: 1...100)
+  print("\(metadata.displayName): random = \(random)")
+  metadata.wasExecuted = true
+  print("\(metadata.displayName): was executed: \(metadata.wasExecuted)")
+}
+@MainActor fileprivate func multiplePlaygroundsPerLinePlayground2Body() {
+  let metadata = multiplePlaygroundsPerLinePlayground2
+  let random = Int.random(in: 1...100)
+  print("\(metadata.displayName): random = \(random)")
+  metadata.wasExecuted = true
+  print("\(metadata.displayName): was executed: \(metadata.wasExecuted)")
+}
+@MainActor fileprivate var multiplePlaygroundsPerLinePlayground1 = TestablePlaygroundMetadata(playgroundLineNumber: #line + 2, playgroundColumnNumber: 1)
+@MainActor fileprivate var multiplePlaygroundsPerLinePlayground2 = TestablePlaygroundMetadata(playgroundLineNumber: #line + 1, playgroundColumnNumber: "#Playground(body: multiplePlaygroundsPerLinePlayground1Body); ".utf8.count+1)
+#Playground(body: multiplePlaygroundsPerLinePlayground1Body); #Playground(body: multiplePlaygroundsPerLinePlayground2Body)
 
 // MARK: - All Testable Playground Metadata -
 
+/// Register all `TestablePlaygroundMetadata` instances here so they get tested.
 @MainActor fileprivate var allTestablePlaygroundMetadata: [TestablePlaygroundMetadata] = [
   namedPlaygroundWithTrailingClosure,
   unnamedPlaygroundWithTrailingClosure,
@@ -128,6 +157,9 @@ import Testing
   unnamedPlaygroundWithClosureAsBodyArgument,
   namedPlaygroundWithFunctionReferenceAsBodyArgument,
   unnamedPlaygroundWithFunctionReferenceAsBodyArgument,
+  playgroundAtNonAsciiColumnOffset,
+  multiplePlaygroundsPerLinePlayground1,
+  multiplePlaygroundsPerLinePlayground2,
 ]
 
 
