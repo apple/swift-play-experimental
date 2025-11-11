@@ -32,6 +32,14 @@ public struct __Playground: Sendable {
       }
       return location
     }
+
+    /// Returns true only if the other ID has matching file and line, but
+    /// not the same column (so they aren't the same IDs).
+    public func sharesLine(with otherID: __ID) -> Bool {
+      self.__fileID == otherID.__fileID &&
+      self.__line   == otherID.__line   &&
+      self.__column != otherID.__column
+    }
   }
 
   // MARK: - For Tools Use: Public properties of a playground -

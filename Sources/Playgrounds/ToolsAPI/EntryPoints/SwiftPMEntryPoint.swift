@@ -141,6 +141,7 @@ public func __swiftPMEntryPoint(_ args: [String]) -> CInt {
 public func __swiftPlayEntryPoint(_ args: [String]) async -> Int {
   var listOption = false
   var oneShotOption = false
+  var verbose = false
   var playgroundDescription = ""
 
   // Parse arguments
@@ -150,6 +151,9 @@ public func __swiftPlayEntryPoint(_ args: [String]) async -> Int {
     }
     else if arg == "--one-shot" {
       oneShotOption = true
+    }
+    else if arg == "--verbose" {
+      verbose = true
     }
     else {
       playgroundDescription = arg
@@ -164,7 +168,13 @@ public func __swiftPlayEntryPoint(_ args: [String]) async -> Int {
         }
         return "(unnamed)"
       }()
-      print("* \(playground.__id.__fileID):\(playground.__id.__line) \(playgroundName)")
+
+      // Only output the column number if the playground shares a line with another playground,
+      // unless verbose output is enabled (then always show the column number).
+      let shouldShowColumn = verbose || playgrounds.contains { $0.__id.sharesLine(with: playground.__id) }
+      let columnOutput = shouldShowColumn ? ":\(playground.__id.__column)" : ""
+
+      print("* \(playground.__id.__fileID):\(playground.__id.__line)\(columnOutput) \(playgroundName)")
     }
   }
 
