@@ -16,11 +16,11 @@ let package = Package(
   name: "swift-play-experimental",
 
   platforms: [
-    .macOS(.v10_15),
-    .iOS(.v13),
-    .watchOS(.v6),
-    .tvOS(.v13),
-    .macCatalyst(.v13),
+    .macOS(.v14),
+    .iOS(.v17),
+    .watchOS(.v10),
+    .tvOS(.v17),
+    .macCatalyst(.v17),
     .visionOS(.v1),
   ],
 
