@@ -122,7 +122,7 @@ public typealias __PlaygroundsContentRecordAccessor = @convention(c) (
 public typealias __PlaygroundsContentRecord = (
   kind: UInt32,
   reserved1: UInt32,
-  accessor: __PlaygroundsContentRecordAccessor?,
+  accessor: __PlaygroundsContentRecordAccessor,
   context: UInt,
   reserved2: UInt
 )

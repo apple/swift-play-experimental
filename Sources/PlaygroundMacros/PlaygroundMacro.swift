@@ -84,7 +84,22 @@ public enum Playground: DeclarationMacro, Sendable {
 
     // The playground content record to be be looked up at runtime
     let playgroundContentRecordName = context.makeUniqueName("PlaygroundContentRecord")
-    let playgroundContentRecordDecl: DeclSyntax =
+    
+  #if compiler(>=6.3)
+    // https://github.com/swiftlang/swift-evolution/blob/main/proposals/0492-section-control.md
+    let sectionDecl: DeclSyntax =
+      """
+      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+      @section("__DATA_CONST,__swift5_tests")
+      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
+      @section("swift5_tests")
+      #elseif os(Windows)
+      @section(".sw5test$B")
+      #endif
+      @used
+      """
+  #else
+    let sectionDecl: DeclSyntax =
       """
       #if hasFeature(SymbolLinkageMarkers)
       #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
@@ -96,6 +111,12 @@ public enum Playground: DeclarationMacro, Sendable {
       #endif
       @_used
       #endif
+      """
+  #endif
+
+    let playgroundContentRecordDecl: DeclSyntax =
+      """
+      \(sectionDecl)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let \(playgroundContentRecordName): Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
