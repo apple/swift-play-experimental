@@ -27,6 +27,34 @@ fileprivate let macroExpansionTestSupported = false
 @Suite("Playground Macro Expansion Tests")
 struct PlaygroundMacroExpansionTests {
 
+  private var sectionExpansion: String {
+#if compiler(>=6.3)
+      """
+      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+      @section("__DATA_CONST,__swift5_tests")
+      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
+      @section("swift5_tests")
+      #elseif os(Windows)
+      @section(".sw5test$B")
+      #endif
+      @used
+      """
+#else
+      """
+      #if hasFeature(SymbolLinkageMarkers)
+      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+      @_section("__DATA_CONST,__swift5_tests")
+      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
+      @_section("swift5_tests")
+      #elseif os(Windows)
+      @_section(".sw5test$B")
+      #endif
+      @_used
+      #endif
+      """
+#endif
+  }
+
   @Test("Named Playground with trailing closure expansion",
         .enabled(if: macroExpansionTestSupported))
   func namedPlaygroundWithTrailingClosureExpansionTest() throws {
@@ -66,16 +94,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -148,16 +167,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -230,16 +240,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -312,16 +313,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -394,16 +386,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -476,16 +459,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -546,16 +520,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -616,16 +581,7 @@ struct PlaygroundMacroExpansionTests {
       }
       
       }
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
+      \(sectionExpansion)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let __macro_local_23PlaygroundContentRecordfMu_: Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
