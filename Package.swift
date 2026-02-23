@@ -44,6 +44,7 @@ let package = Package(
         "PlaygroundMacros",
         .product(name: "_TestDiscovery", package: "swift-testing"),
       ],
+      exclude: ["CMakeLists.txt"],
       swiftSettings: .packageSettings
     ),
     
@@ -62,6 +63,7 @@ let package = Package(
         .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
       ],
+      exclude: ["CMakeLists.txt"],
       swiftSettings: .packageSettings
     ),
   ]
