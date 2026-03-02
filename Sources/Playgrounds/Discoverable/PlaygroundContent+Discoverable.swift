@@ -19,43 +19,15 @@ extension PlaygroundContent: DiscoverableAsTestContent {
   /// Use the hint type to avoid running code for _every_ playground in a binary
   /// in order to find the one that you care about.
   fileprivate typealias TestContentAccessorHint = Hint
-
-  /// This property acts as a hint to ``DiscoverableAsTestContent`` so that it
-  /// can skip over types whose names don't match the pattern used in the macro.
-  fileprivate static var _testContentTypeNameHint: String {
-    "__🟡$PlaygroundContentRecordContainer"
-  }
 }
 
 extension PlaygroundContent {
-  private static func allTypeMetadataBasedTestContentRecords() -> some Sequence<TestContentRecord<Self>> {
-    allTypeMetadataBasedTestContentRecords { type, outRecord in
-      guard let type = type as? any __PlaygroundsContentRecordContainer.Type else {
-        return false
-      }
-      outRecord.withMemoryRebound(to: __PlaygroundsContentRecord.self) { outRecord in
-        outRecord.baseAddress!.initialize(to: type.__playgroundsContentRecord)
-      }
-      return true
-    }
-  }
-
   /// All available playground instances in the process, according to the runtime.
   ///
   /// The order of values in this sequence is unspecified.
   static var all: some Sequence<Self> {
-    var result = [Self]()
-
-    result = PlaygroundContent.allTestContentRecords().compactMap {
-      $0.load()
-    }
-
-    if result.isEmpty {
-      // Fall back to type-based discovery.
-      result = PlaygroundContent.allTypeMetadataBasedTestContentRecords().compactMap {
-        $0.load()
-      }
-    }
+    let result = PlaygroundContent.allTestContentRecords().lazy
+      .compactMap { $0.load() }
 
     return Set(result)
   }
@@ -69,18 +41,9 @@ extension PlaygroundContent {
   /// Find the first playground in the current process with the given hint (name
   /// or ID.)
   static func find(withHint hint: Hint) -> Self? {
-    var result = PlaygroundContent.allTestContentRecords().lazy
+    PlaygroundContent.allTestContentRecords().lazy
       .compactMap { $0.load(withHint: hint) }
       .first
-
-    if result == nil {
-      // Fall back to type-based discovery.
-      result = PlaygroundContent.allTypeMetadataBasedTestContentRecords().lazy
-        .compactMap { $0.load(withHint: hint) }
-        .first
-    }
-
-    return result
   }
 }
 
@@ -187,22 +150,4 @@ public func __store(
     )
   )
   return true
-}
-
-// MARK: - Content Records (Type-Based Discovery) -
-
-/// A protocol describing a type that contains a playground.
-///
-/// - Warning: This protocol is used to implement the `#Playground` macro. Do
-///   not use it it directly.
-#if !os(Windows)
-@_weakLinked
-#endif
-@_alwaysEmitConformanceMetadata
-public protocol __PlaygroundsContentRecordContainer {
-  /// The playgrounds content record associated with this container.
-  ///
-  /// - Warning: This property is used to implement the `#Playground` macro. Do
-  ///   not use it it directly.
-  nonisolated static var __playgroundsContentRecord: __PlaygroundsContentRecord { get }
 }
