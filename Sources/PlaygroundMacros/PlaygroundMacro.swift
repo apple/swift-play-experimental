@@ -85,38 +85,16 @@ public enum Playground: DeclarationMacro, Sendable {
     // The playground content record to be be looked up at runtime
     let playgroundContentRecordName = context.makeUniqueName("PlaygroundContentRecord")
     
-  #if compiler(>=6.3)
-    // https://github.com/swiftlang/swift-evolution/blob/main/proposals/0492-section-control.md
-    let sectionDecl: DeclSyntax =
+    let playgroundContentRecordDecl: DeclSyntax =
       """
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+      #if objectFormat(MachO)
       @section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
+      #elseif objectFormat(ELF) || objectFormat(Wasm)
       @section("swift5_tests")
-      #elseif os(Windows)
+      #elseif objectFormat(COFF)
       @section(".sw5test$B")
       #endif
       @used
-      """
-  #else
-    let sectionDecl: DeclSyntax =
-      """
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
-      """
-  #endif
-
-    let playgroundContentRecordDecl: DeclSyntax =
-      """
-      \(sectionDecl)
       @available(*, deprecated, message: "This property is an implementation detail of the playgrounds library. Do not use it directly.")
       nonisolated private let \(playgroundContentRecordName): Playgrounds.__PlaygroundsContentRecord = (
         0x706c6179, /* 'play' */
@@ -135,25 +113,11 @@ public enum Playground: DeclarationMacro, Sendable {
         0,
         0
       )
-      
-      """
-
-    // The playground content record container to be looked up at runtime
-    let playgroundContentRecordContainerName = context.makeUniqueName("__🟡$PlaygroundContentRecordContainer")
-    let playgroundContentRecordContainerDecl: DeclSyntax =
-      """
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum \(playgroundContentRecordContainerName): Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          \(playgroundContentRecordName)
-        }
-      }
       """
 
     return [
       playgroundEntryContainerDecl,
       playgroundContentRecordDecl,
-      playgroundContentRecordContainerDecl
     ]
   }
   
