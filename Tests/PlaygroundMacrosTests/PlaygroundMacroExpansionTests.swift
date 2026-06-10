@@ -28,31 +28,16 @@ fileprivate let macroExpansionTestSupported = false
 struct PlaygroundMacroExpansionTests {
 
   private var sectionExpansion: String {
-#if compiler(>=6.3)
       """
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
+      #if objectFormat(MachO)
       @section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
+      #elseif objectFormat(ELF) || objectFormat(Wasm)
       @section("swift5_tests")
-      #elseif os(Windows)
+      #elseif objectFormat(COFF)
       @section(".sw5test$B")
       #endif
       @used
       """
-#else
-      """
-      #if hasFeature(SymbolLinkageMarkers)
-      #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-      @_section("__DATA_CONST,__swift5_tests")
-      #elseif os(Linux) || os(FreeBSD) || os(OpenBSD) || os(Android) || os(WASI)
-      @_section("swift5_tests")
-      #elseif os(Windows)
-      @_section(".sw5test$B")
-      #endif
-      @_used
-      #endif
-      """
-#endif
   }
 
   @Test("Named Playground with trailing closure expansion",
@@ -113,12 +98,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -186,12 +165,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -259,12 +232,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -332,12 +299,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -405,12 +366,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -478,12 +433,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -539,12 +488,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
@@ -600,12 +543,6 @@ struct PlaygroundMacroExpansionTests {
         0,
         0
       )
-      @available(*, deprecated, message: "This type is an implementation detail of the playgrounds library. Do not use it directly.")
-      enum __macro_local_36__🟡$PlaygroundContentRecordContainerfMu_: Playgrounds.__PlaygroundsContentRecordContainer {
-        nonisolated static var __playgroundsContentRecord: Playgrounds.__PlaygroundsContentRecord {
-          __macro_local_23PlaygroundContentRecordfMu_
-        }
-      }
       """,
       macroSpecs: ["Playground" : MacroSpec(type: Playground.self, conformances: [])]
     )
